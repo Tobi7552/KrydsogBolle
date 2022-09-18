@@ -13,13 +13,12 @@ class Board():
         print('------------')
         print('| %s | %s | %s|' %(self.cells[7], self.cells[8], self.cells[9]))
         print('------------')
+    
+    
     def update_cell(self, cell_no, player):
-        
         if self.cells[cell_no] == str(cell_no):
             self.cells[cell_no] = player
             
-            
-    
         
 
     def winner(self, player):
@@ -41,19 +40,18 @@ class Board():
             return True
 
     def reset(self):
-        self.cells = ['0','1','2','3','4','5','6','7','8','9']
-                       
+        self.cells = ['0','1','2','3','4','5','6','7','8','9']        
     
     def uafgjort(self):
         count = 0
         for cell in self.cells:
-            if cell == int('O') or cell == int('X'):
+            if cell == 'O' or cell == 'X':
                 count += 1
-            if count == 9:
-                return True
-            else:
-                return False           
-            
+        if count == 9:
+            return True
+        else:
+            return False           
+    
 board = Board()
 
 def refresh_screen():
@@ -65,9 +63,22 @@ while True:
 
    x_valg = int(input('\nX) Vælg et tal mellen 1-9 >'))
 
+
    board.update_cell(x_valg, 'X')
 
+
+
    refresh_screen()
+   
+   if board.uafgjort():
+    print('\n Uafgjort!\n')
+    spil_igen = input('Vil du spille igen? (Y/N) > ').upper()
+    if spil_igen == 'N':
+        break
+    else:
+        board.reset()
+        continue
+        
 
    if board.winner('X'):
     print('\nX vinder!\n')
@@ -78,15 +89,6 @@ while True:
         board.reset()
         continue
    
-    
-    if board.uafgjort():
-        print('\n Uafgjort!\n')
-        spil_igen = input('Vil du spille igen? (Y/N) > ').upper()
-        if spil_igen == 'N':
-            break
-        else:
-            board.reset()
-            continue
         
     refresh_screen()      
    
